@@ -19,16 +19,12 @@ server.post('/conversor', async (req,res) => {
     let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
 
     try {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.setContent(html, { waitUntil: 'domcontentloaded' });
-        
-        const pdfBuffer = await page.pdf();
-        await browser.close();
+        html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
+            return res.json({ConvertedString: pdfBuffer.toString('base64')});
+          });
     
         //res.set('Content-Disposition', 'attachment;filename="converted.pdf"');
         //res.set('Content-Type', 'application/pdf');
-        return res.json({ConvertedString: pdfBuffer.toString('base64')});
         //console.log(pdfBuffer.toString('base64'));
       } catch (error) {
         console.error(error);
