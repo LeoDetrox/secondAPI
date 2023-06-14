@@ -16,7 +16,7 @@ server.post('/conversor', async (req,res) => {
 
     let options = { format: 'A4' };
 
-    let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
+    let file = { content: html };
 
     try {
         html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
